@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <title>รหัสลับถึงไอซ์ 💖</title>
+  <style>
+    body {
+      background-color: #000;
+      color: white;
+      font-family: 'Kanit', sans-serif;
+      text-align: center;
+      overflow: hidden;
+      margin: 0;
+      height: 100vh;
+    }
+    h1, p {
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    .reveal {
+      opacity: 1 !important;
+    }
+    #start-btn {
+      margin-top: 40vh;
+      padding: 20px 40px;
+      font-size: 1.5em;
+      background-color: #ff4081;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    #start-btn:hover {
+      background-color: #ff79a8;
+    }
+    .heart-burst {
+      position: absolute;
+      font-size: 2em;
+      animation: floatHeart 2s linear forwards;
+      pointer-events: none;
+    }
+    @keyframes floatHeart {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.5); opacity: 0; }
+    }
+
+    /* Fireworks */
+    .firework {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: pink;
+      animation: explode 1s ease-out forwards;
+    }
+    @keyframes explode {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <button id="start-btn">คลิกเพื่อเริ่มภารกิจรัก 💌</button>
+
+  <h1 id="title">ถึงไอซ์...จากใจของคนไกล 🥺</h1>
+  <p id="line1">🌟 เค้ารู้ว่าเราอาจจะอยู่ไกลกันในตอนนี้</p>
+  <p id="line2">💖 แต่หัวใจของเค้า...ไม่เคยห่างจากไอซ์เลย</p>
+  <p id="line3">💌 ขอบคุณที่อยู่ในชีวิตเค้านะ</p>
+  <p id="line4">🥰 เค้ารักไอซ์มากกว่าที่คำพูดจะบอกได้</p>
+  <p id="line5">🎇 และนี่คือดอกไม้ไฟแห่งความรัก...เพื่อไอซ์เท่านั้น</p>
+
+  <script>
+    const messages = ["title", "line1", "line2", "line3", "line4", "line5"];
+    const startBtn = document.getElementById("start-btn");
+
+    startBtn.onclick = () => {
+      startBtn.style.display = "none";
+      let delay = 0;
+      messages.forEach((id, index) => {
+        setTimeout(() => {
+          document.getElementById(id).classList.add("reveal");
+          burstHearts();
+          if (index === messages.length - 1) launchFireworks();
+        }, delay += 1500);
+      });
+    };
+
+    function burstHearts() {
+      for (let i = 0; i < 10; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart-burst";
+        heart.innerText = "💖";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = (60 + Math.random() * 20) + "vh";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 2000);
+      }
+    }
+
+    function launchFireworks() {
+      for (let i = 0; i < 30; i++) {
+        const fw = document.createElement("div");
+        fw.className = "firework";
+        fw.style.left = Math.random() * 100 + "vw";
+        fw.style.top = Math.random() * 80 + "vh";
+        fw.style.background = ["#ff4081", "#ffcc00", "#00e5ff"][i % 3];
+        document.body.appendChild(fw);
+        setTimeout(() => fw.remove(), 1000);
+      }
+    }
+  </script>
+</body>
+</html>
